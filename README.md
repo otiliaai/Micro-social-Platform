@@ -1,86 +1,102 @@
-#📱 Micro-Social Platform
-O aplicație web de tip rețea de socializare dezvoltată în ASP.NET Core MVC, care permite utilizatorilor să creeze profiluri, să posteze conținut multimedia, să interacționeze prin grupuri și să urmărească activitatea altor persoane.
+# Micro-social Platform
 
+O aplicație web de tip rețea de socializare dezvoltată în **ASP.NET Core MVC**, creată pentru a facilita interacțiunea între utilizatori prin postări, grupuri și un sistem de urmărire (follow).
 
+Proiect realizat în cadrul laboratorului de **Dezvoltarea Aplicațiilor Web (DAW)**.
+
+---
 
 ## Funcționalități Principale
-### 1. Gestionarea Utilizatorilor și Profiluri
-Autentificare și Roluri: Sistem bazat pe ASP.NET Identity.
 
+### 👤 Gestionarea Utilizatorilor
+* **Tipuri de utilizatori:** Vizitator, Utilizator Înregistrat, Administrator.
+* **Autentificare:** Sistem complet de Login/Register folosind **ASP.NET Identity**.
+* **Profiluri:** Posibilitatea de a seta profilul ca **Public** sau **Privat**. Utilizatorii își pot edita numele, descrierea și poza de profil.
+* **Căutare:** Găsirea utilizatorilor după nume sau părți din nume.
 
-- Vizitator: Poate căuta utilizatori și vizualiza profiluri publice.
+### 👥 Grupuri și Comunități
+* Crearea de grupuri noi (creatorul devine moderator).
+* Sistem de **Join Request** (membrii trebuie acceptați de moderator).
+* Discuții în cadrul grupurilor.
 
+### 📝 Postări și Feed
+* Creare postări cu conținut multimedia (Text, Foto, Video).
+* Feed personalizat care afișează postările persoanelor urmărite (Followings).
+* Sistem de Like-uri și Comentarii.
 
-- Utilizator Înregistrat: Acces complet la funcționalități (postări, grupuri, follow).
+### Componentă AI (Content Moderation)
+* Integrare cu un serviciu AI pentru filtrarea automată a conținutului neadecvat (hate speech, insulte).
+* Verificarea se face înainte de salvarea în baza de date.
 
+---
 
-- Administrator: Poate modera conținutul și gestiona utilizatorii/grupurile.
+## Tehnologii Utilizate
 
+* **Framework:** .NET 9.0 (ASP.NET Core MVC)
+* **Limbaj:** C#
+* **Bază de date:** SQL Server (prin Entity Framework Core)
+* **Frontend:** HTML5, CSS3, Bootstrap
+* **Versiune Control:** Git & GitHub
 
-- Profiluri: Editare nume, descriere și poză de profil. Posibilitatea de a seta profilul ca Public sau Privat.
+---
 
+## Instalare și Rulare (Comenzi)
 
-- Căutare: Căutare utilizatori după nume sau părți din nume.
+Urmează pașii de mai jos pentru a rula proiectul pe mașina locală.
 
-### 2. Interacțiune Socială (Follow & Feed)
-- Sistem Follow: Cereri de urmărire unidirecționale (similar Instagram). Pentru profilurile private, cererile necesită aprobare.
+### 1. Clonează repository-ul
+Deschide terminalul (Command Prompt, PowerShell sau Git Bash) și rulează comanda:
+```bash
+git clone [https://github.com/andrachiritoiu/Micro-social-Platform.git](https://github.com/andrachiritoiu/Micro-social-Platform.git)
+```
 
+### 2. Navighează în folderul proiectului
+```bash
+cd Micro-social-Platform
+```
 
-- Feed Personalizat: Afișează postările persoanelor urmărite, ordonate descrescător după dată.
+### 3. Configurează Baza de Date
+Asigură-te că ai string-ul de conexiune setat corect în fișierul appsettings.json. Apoi, pentru a crea baza de date și a popula tabelele (Seed Data), rulează în Package Manager Console (sau terminal):
 
-3. Grupuri și Comunități
-Utilizatorii pot crea grupuri și devin automat moderatori.
+```bash
+dotnet tool install --global dotnet-ef
+dotnet ef database update
+```
 
-Accesul în grupuri se face pe bază de cerere ("Join") acceptată de moderator.
+### 4. Rulează Aplicația
+Pornește serverul local cu următoarea comandă:
 
-Discuții și mesaje în cadrul grupului.
+```bash
+dotnet run
+```
 
-4. Conținut Multimedia
+Aplicația va fi accesibilă în browser la adresa: `https://localhost:` 
 
-- Postări: Suport pentru text, imagini și videoclipuri.
+---
 
--Reacții: Sistem de like-uri și comentarii la postări.
+## 🐳 Rulare cu Docker (Alternativ)
 
-- Validare ca un utilizator să nu poată da like de două ori la aceeași postare.
+Dacă preferi să nu instalezi SQL Server local, poți rula aplicația folosind Docker.
 
-### Integrare AI - Filtrare Conținut
-Aplicația include un "Companion AI" pentru moderarea automată a conținutului, conform cerințelor.
+### Cerințe preliminare
+* [Docker Desktop](https://www.docker.com/products/docker-desktop/) instalat și pornit.
 
-Funcționalitate: Înainte ca o postare sau un comentariu să fie salvat în baza de date, textul este trimis către un serviciu AI.
+### Pași pentru rulare
 
-Logică:
+1.  **Deschide terminalul** în rădăcina proiectului (unde se află fișierul `docker-compose.yml`).
+2.  **Construiește și pornește containerele:**
+    ```bash
+    docker-compose up --build
+    ```
+3.  **Accesarea aplicației:**
+    După ce log-urile indică faptul că aplicația a pornit, deschide browserul la:
+    * **http://localhost:8080**
 
-1.Utilizatorul apasă "Post".
+4.  **Oprirea aplicației:**
+    Pentru a opri serviciile, apasă `Ctrl+C` sau rulează:
+    ```bash
+    docker-compose down
+    ```
 
-2.Controller-ul interceptează cererea și extrage textul.
+---
 
-3.Textul este analizat pentru hate speech, insulte sau limbaj discriminatoriu.
-
-4.Dacă AI-ul returnează un flag negativ, postarea este blocată, iar utilizatorul primește un mesaj de eroare prietenos.
-
-5.Dacă textul este curat, postarea este salvată.
-
-### Tehnologii Utilizate
-
--Framework: ASP.NET Core MVC 9.0 
-
--Limbaj: C#
-
--Baza de date: Microsoft SQL Server
-
--ORM: Entity Framework Core
-
--Autentificare: ASP.NET Core Identity
-
--Frontend: HTML5, CSS3, Bootstrap (pentru design responsive) 
-
--AI Service: 
-
-📂 Structura Proiectului
--Proiectul respectă arhitectura MVC (Model-View-Controller):
-
--Models: Definește structura bazei de date (Users, Groups, Posts, Comments).
-
--Views: Interfața cu utilizatorul (Razor Pages).
-
--Controllers: Gestionează logica aplicației și apelurile către baza de date și serviciul AI.
