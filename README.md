@@ -38,6 +38,19 @@ O aplicație web de tip rețea de socializare dezvoltată în **ASP.NET Core MVC
 
 ---
 
+## 📂 Structura Proiectului
+
+```text
+Micro-social-Platform/
+├── Controllers/       # Logica de business (PostsController, GroupsController etc.)
+├── Models/            # Entitățile bazei de date (ApplicationUser, Post, Group etc.)
+├── Views/             # Interfața utilizator (Razor Pages)
+├── Data/              # Contextul EF Core și Migrațiile
+├── Services/          # Logica pentru AI Content Moderation
+├── wwwroot/           # Resurse statice (CSS, JS, Imagini uploadate)
+└── Dockerfile         # Configurare containerizare
+```
+
 ## Instalare și Rulare (Comenzi)
 
 Urmează pașii de mai jos pentru a rula proiectul pe mașina locală.
@@ -53,13 +66,25 @@ git clone [https://github.com/andrachiritoiu/Micro-social-Platform.git](https://
 cd Micro-social-Platform
 ```
 
-### 3. Configurează Baza de Date
-Asigură-te că ai string-ul de conexiune setat corect în fișierul appsettings.json. Apoi, pentru a crea baza de date și a popula tabelele (Seed Data), rulează în Package Manager Console (sau terminal):
+### 3. Configurează Baza de Date și AI
+Înainte de a rula migrațiile, deschide fișierul `appsettings.json` și fă următoarele setări:
+
+1.  Verifică dacă **Connection String-ul** este corect pentru SQL Server-ul tău.
+2.  Adaugă cheia API pentru serviciul de moderare AI (necesară pentru validarea postărilor):
+    ```json
+    "AISettings": {
+      "ApiKey": "CHEIA_TA"
+    }
+    ```
+
+După ce ai salvat fișierul, rulează următoarele comenzi în terminal (sau Package Manager Console) pentru a crea baza de date și a popula tabelele cu **Seed Data**:
 
 ```bash
 dotnet tool install --global dotnet-ef
 dotnet ef database update
 ```
+
+
 
 ### 4. Rulează Aplicația
 Pornește serverul local cu următoarea comandă:
@@ -71,6 +96,15 @@ dotnet run
 Aplicația va fi accesibilă în browser la adresa: `https://localhost:` 
 
 ---
+
+
+### 🔑 Conturi de Test (Seed Data)
+După rularea migrațiilor, baza de date este populată automat cu următorii utilizatori pentru testare rapidă:
+
+* **Administrator:** `admin@test.com` / Parola: `Admin1!`
+* **Utilizator 1:** `user1@test.com` / Parola: `User1!`
+* **Utilizator 2:** `user2@test.com` / Parola: `User2!`
+  
 
 ## 🐳 Rulare cu Docker (Alternativ)
 
