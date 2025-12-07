@@ -30,7 +30,7 @@ namespace MicroSocialPlatform.Data
 
             //Un user nu poate sa reactioneze de mai multe ori la aceeasi postare
             builder.Entity<Reaction>()
-                .HasKey(r => new {r.UserId, r.PostId});
+                .HasKey(r => new { r.UserId, r.PostId });
 
             //Daca stergi userul, sterge si reactiile lui
             builder.Entity<Reaction>()
@@ -89,7 +89,31 @@ namespace MicroSocialPlatform.Data
                 .HasForeignKey(c => c.PostId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-        }
 
+
+            // Configure string properties for MySQL compatibility
+            foreach (var entityType in builder.Model.GetEntityTypes())
+            {
+                foreach (var property in entityType.GetProperties())
+                {
+                    if (property.ClrType == typeof(string))
+                    {
+                        var maxLength = property.GetMaxLength();
+
+
+                        if (maxLength == null)
+                        {
+                            // Set default max length for string primary keys and
+                            //foreign keys
+                            if (property.IsKey() || property.IsForeignKey())
+                            {
+                                property.SetMaxLength(255);
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
     }
 }
