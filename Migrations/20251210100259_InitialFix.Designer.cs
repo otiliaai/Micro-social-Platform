@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MicroSocialPlatform.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251207120331_InitialMySQL")]
-    partial class InitialMySQL
+    [Migration("20251210100259_InitialFix")]
+    partial class InitialFix
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
