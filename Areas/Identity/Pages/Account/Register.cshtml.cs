@@ -84,6 +84,10 @@ namespace MicroSocialPlatform.Areas.Identity.Pages.Account
             [Display(Name = "Nume de familie")]
             public string LastName { get; set; }
 
+            [Required]
+            [Display(Name = "Username")]
+            public string Username { get; set; }
+
 
             [Required]
             [EmailAddress]
@@ -124,11 +128,28 @@ namespace MicroSocialPlatform.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
+                // verificam dacă Username-ul este deja in bd
+                var existingUser = await _userManager.FindByNameAsync(Input.Username);
+                if (existingUser != null)
+                {
+                    ModelState.AddModelError("Input.Username", "This Username is already taken. Please choose another one.");
+                    return Page(); 
+                }
+
+                // verificam dacă Email-ul este deja in bd
+                var existingEmail = await _userManager.FindByEmailAsync(Input.Email);
+                if (existingEmail != null)
+                {
+                    ModelState.AddModelError("Input.Email", "This Email is already registered. Please try logging in.");
+                    return Page();
+                }
+
                 var user = CreateUser();
                 user.FirstName = Input.FirstName;
                 user.LastName = Input.LastName;
+                user.UserName = Input.Username;
 
-                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+                await _userStore.SetUserNameAsync(user, Input.Username, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
