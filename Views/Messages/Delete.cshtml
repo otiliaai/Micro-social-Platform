@@ -24,6 +24,7 @@
                         <button type="submit" class="btn btn-danger rounded-pill px-4">
                             Yes, Delete
                         </button>
+
                         <a asp-action="Conversation" asp-route-id="@(Model.ReceiverId == ViewData["CurrentUserId"]?.ToString() ? Model.SenderId : Model.ReceiverId)"
                            class="btn btn-light rounded-pill px-4">
                             No, Keep it
