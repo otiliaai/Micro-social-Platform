@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 using Microsoft.AspNetCore.Authorization;
+=======
+﻿using Microsoft.AspNetCore.Authorization;
+>>>>>>> efb3eb4a47a9c6afe9b76812eaceb1b9c58010d0
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -25,7 +29,10 @@ namespace MicroSocialPlatform.Controllers
             var user = await _userManager.GetUserAsync(User);
             if (user == null) return Unauthorized();
 
+<<<<<<< HEAD
             // Get all conversations (users you've messaged or who messaged you)
+=======
+>>>>>>> efb3eb4a47a9c6afe9b76812eaceb1b9c58010d0
             var conversations = await _context.Messages
                 .Where(m => m.SenderId == user.Id || m.ReceiverId == user.Id)
                 .Include(m => m.Sender)
@@ -33,7 +40,10 @@ namespace MicroSocialPlatform.Controllers
                 .OrderByDescending(m => m.CreatedAt)
                 .ToListAsync();
 
+<<<<<<< HEAD
             // Group by conversation partner
+=======
+>>>>>>> efb3eb4a47a9c6afe9b76812eaceb1b9c58010d0
             var conversationPartners = conversations
                 .Select(m => m.SenderId == user.Id ? m.Receiver : m.Sender)
                 .Distinct()
@@ -54,7 +64,10 @@ namespace MicroSocialPlatform.Controllers
             var otherUser = await _userManager.FindByIdAsync(id);
             if (otherUser == null) return NotFound();
 
+<<<<<<< HEAD
             // Get all messages between current user and other user
+=======
+>>>>>>> efb3eb4a47a9c6afe9b76812eaceb1b9c58010d0
             var messages = await _context.Messages
                 .Include(m => m.Sender)
                 .Include(m => m.Receiver)
@@ -63,6 +76,7 @@ namespace MicroSocialPlatform.Controllers
                 .OrderBy(m => m.CreatedAt)
                 .ToListAsync();
 
+<<<<<<< HEAD
             // Mark messages as read
             var unreadMessages = messages.Where(m => m.ReceiverId == user.Id && !m.IsRead).ToList();
             foreach (var message in unreadMessages)
@@ -70,6 +84,10 @@ namespace MicroSocialPlatform.Controllers
                 message.IsRead = true;
             }
 
+=======
+            var unreadMessages = messages.Where(m => m.ReceiverId == user.Id && !m.IsRead).ToList();
+            foreach (var message in unreadMessages) { message.IsRead = true; }
+>>>>>>> efb3eb4a47a9c6afe9b76812eaceb1b9c58010d0
             await _context.SaveChangesAsync();
 
             ViewData["OtherUser"] = otherUser;
@@ -77,6 +95,11 @@ namespace MicroSocialPlatform.Controllers
             return View(messages);
         }
 
+<<<<<<< HEAD
+=======
+        // --- CRUD MESAJ INDIVIDUAL (PAGINI SEPARATE CA LA GRUPURI) ---
+
+>>>>>>> efb3eb4a47a9c6afe9b76812eaceb1b9c58010d0
         // GET: Messages/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
@@ -85,7 +108,11 @@ namespace MicroSocialPlatform.Controllers
 
             if (message == null || message.SenderId != user.Id) return NotFound();
 
+<<<<<<< HEAD
             return View(message);
+=======
+            return View(message); // Deschide Views/Messages/Edit.cshtml
+>>>>>>> efb3eb4a47a9c6afe9b76812eaceb1b9c58010d0
         }
 
         [HttpPost]
@@ -112,7 +139,11 @@ namespace MicroSocialPlatform.Controllers
 
             if (message == null || message.SenderId != user.Id) return NotFound();
 
+<<<<<<< HEAD
             return View(message);
+=======
+            return View(message); // Deschide Views/Messages/Delete.cshtml
+>>>>>>> efb3eb4a47a9c6afe9b76812eaceb1b9c58010d0
         }
 
         [HttpPost]
@@ -131,10 +162,16 @@ namespace MicroSocialPlatform.Controllers
             return RedirectToAction(nameof(Conversation), new { id = otherUserId });
         }
 
+<<<<<<< HEAD
+=======
+        // --- ALTE OPERATII ---
+
+>>>>>>> efb3eb4a47a9c6afe9b76812eaceb1b9c58010d0
         [HttpPost]
         [IgnoreAntiforgeryToken]
         public async Task<IActionResult> Send(string receiverId, string content)
         {
+<<<<<<< HEAD
             if (string.IsNullOrWhiteSpace(content))
             {
                 return Json(new { success = false, message = "Message cannot be empty" });
@@ -151,6 +188,10 @@ namespace MicroSocialPlatform.Controllers
             {
                 return Json(new { success = false, message = "Receiver not found" });
             }
+=======
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null || string.IsNullOrWhiteSpace(content)) return Json(new { success = false });
+>>>>>>> efb3eb4a47a9c6afe9b76812eaceb1b9c58010d0
 
             var message = new Message
             {
@@ -164,6 +205,7 @@ namespace MicroSocialPlatform.Controllers
             _context.Messages.Add(message);
             await _context.SaveChangesAsync();
 
+<<<<<<< HEAD
             // Create notification logic here (optional if you have NotificationsController)
             // ... (Am păstrat logica ta de notificare comentată sau o poți decomenta dacă NotificationsController e static) ...
             var receiverFirstName = receiver.FirstName ?? "";
@@ -218,6 +260,9 @@ namespace MicroSocialPlatform.Controllers
                 return $"{(int)timeSpan.TotalDays}d ago";
 
             return dateTime.ToString("MMM dd, yyyy");
+=======
+            return Json(new { success = true, message = new { id = message.Id, content = message.Content } });
+>>>>>>> efb3eb4a47a9c6afe9b76812eaceb1b9c58010d0
         }
 
         [HttpPost]

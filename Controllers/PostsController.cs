@@ -24,6 +24,7 @@ namespace MicroSocialPlatform.Controllers
 
         public async Task<IActionResult> Index()
         {
+<<<<<<< HEAD
             // 1. Construim query-ul de bază (fără să aducem datele încă)
             var postsQuery = _context.Posts
                     .Include(p => p.User)
@@ -59,6 +60,16 @@ namespace MicroSocialPlatform.Controllers
             var posts = await postsQuery
                     .OrderByDescending(p => p.CreatedAt)
                     .ToListAsync();
+=======
+            var posts = await _context.Posts
+                 .Include(p => p.User)       
+                 .Include(p => p.Comments)
+                     .ThenInclude(c => c.User)
+                 .Include(p => p.Reactions)
+                    .ThenInclude(r => r.User)
+                 .OrderByDescending(p => p.CreatedAt) 
+                 .ToListAsync();
+>>>>>>> efb3eb4a47a9c6afe9b76812eaceb1b9c58010d0
 
             return View(posts);
         }

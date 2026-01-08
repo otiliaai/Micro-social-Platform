@@ -4,6 +4,7 @@ using MicroSocialPlatform.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MicroSocialPlatform.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251228172847_InitialCreateMessages")]
+    partial class InitialCreateMessages
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,10 +41,6 @@ namespace MicroSocialPlatform.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-<<<<<<< HEAD
-                        .IsRequired()
-=======
->>>>>>> efb3eb4a47a9c6afe9b76812eaceb1b9c58010d0
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
@@ -89,10 +88,6 @@ namespace MicroSocialPlatform.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("ProfileImage")
-<<<<<<< HEAD
-                        .IsRequired()
-=======
->>>>>>> efb3eb4a47a9c6afe9b76812eaceb1b9c58010d0
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityStamp")
@@ -134,12 +129,9 @@ namespace MicroSocialPlatform.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-<<<<<<< HEAD
-=======
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
->>>>>>> efb3eb4a47a9c6afe9b76812eaceb1b9c58010d0
                     b.Property<int>("PostId")
                         .HasColumnType("int");
 

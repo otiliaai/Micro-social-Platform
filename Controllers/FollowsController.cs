@@ -2,30 +2,48 @@
 using MicroSocialPlatform.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+<<<<<<< HEAD
 using Microsoft.EntityFrameworkCore;
+=======
+>>>>>>> efb3eb4a47a9c6afe9b76812eaceb1b9c58010d0
 
 namespace MicroSocialPlatform.Controllers
 {
     public class FollowsController : Controller
     {
+<<<<<<< HEAD
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
+=======
+        // urmarire / dezurmarrire utilizatori
+     
+        private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+>>>>>>> efb3eb4a47a9c6afe9b76812eaceb1b9c58010d0
         public FollowsController(
         ApplicationDbContext context,
         UserManager<ApplicationUser> userManager,
         RoleManager<IdentityRole> roleManager)
         {
             _context = context;
+<<<<<<< HEAD
             _userManager = userManager;
             _roleManager = roleManager;
         }
 
+=======
+            _userManager = userManager; // Initializează UserManager
+            _roleManager = roleManager; // Initializează RoleManager
+        }
+>>>>>>> efb3eb4a47a9c6afe9b76812eaceb1b9c58010d0
         public IActionResult Index()
         {
             return View();
         }
+<<<<<<< HEAD
 
         [HttpPost]
         public async Task<IActionResult> SendFollowRequest(string id)
@@ -298,3 +316,7 @@ namespace MicroSocialPlatform.Controllers
         }
     }
 }
+=======
+    }
+}
+>>>>>>> efb3eb4a47a9c6afe9b76812eaceb1b9c58010d0
