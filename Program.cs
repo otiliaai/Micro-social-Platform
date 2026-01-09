@@ -19,7 +19,11 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
+// adaug servicii pentru Gemini API
 builder.Services.AddScoped<ICommentValidationService, GeminiCommentValidationService>();
+builder.Services.AddHttpClient<ITranslationService, GeminiTranslationService>();
+builder.Services.AddMemoryCache();
+
 
 var app = builder.Build();
 
