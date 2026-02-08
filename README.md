@@ -145,15 +145,15 @@ Relațiile sunt gestionate prin **Entity Framework Core**, folosind convenții �
 - [x] Profil public/privat + editare profil
 - [x] Postare (text + media) + feed
 - [x] Like-uri și comentarii
-- [ ] Follow + feed filtrat după following
+- [x] Follow + feed filtrat după following
 - [x] Grupuri + join request + moderare de bază
 - [X] Notificări UI complete (follow, like, comment, join accept)
 - [X] Mesagerie: inbox + status citit + paginare
 - [X] Search îmbunătățit (filtre)
 
 ### In progress / Next
-- [ ] Moderare AI înainte de salvarea postărilor
-- [ ] UI : empty states, skeleton loading, toast messages
+- [x] Moderare AI înainte de salvarea postărilor
+- [x] UI : empty states, skeleton loading, toast messages
 
 ### Nice to have
 - [ ] Refresh feed fără reload (AJAX)
@@ -164,32 +164,3 @@ Relațiile sunt gestionate prin **Entity Framework Core**, folosind convenții �
 
 
 
-
-=======
-## 🐳 Rulare cu Docker (Alternativ)
-
-Dacă preferi să nu instalezi SQL Server local, poți rula aplicația folosind Docker.
-
-### Cerințe preliminare
-* [Docker Desktop](https://www.docker.com/products/docker-desktop/) instalat și pornit.
-
-### Pași pentru rulare
-
-1.  **Deschide terminalul** în rădăcina proiectului (unde se află fișierul `docker-compose.yml`).
-2.  **Construiește și pornește containerele:**
-    ```bash
-    docker-compose up --build
-    ```
-3.  **Accesarea aplicației:**
-    După ce log-urile indică faptul că aplicația a pornit, deschide browserul la:
-    * **http://localhost:8080**
-
-4.  **Oprirea aplicației:**
-    Pentru a opri serviciile, apasă `Ctrl+C` sau rulează:
-    ```bash
-    docker-compose down
-    ```
-
----
-
->>>>>>> efb3eb4a47a9c6afe9b76812eaceb1b9c58010d0
